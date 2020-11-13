@@ -58,8 +58,6 @@ import cv2
 import ipywidgets
 from IPython.display import display as ipydisplay
 
-import time
-
 image_widget = ipywidgets.Image(
     format='jpg',
     width=300,
@@ -69,11 +67,17 @@ prediction_text_widget = ipywidgets.Text(description='Prediction')
 ipydisplay(image_widget)
 ipydisplay(prediction_text_widget)
 prediction_text_widget.value = "3"
-cap = cv2.VideoCapture('http://172.16.11.10:8080/stream.mjpeg')
+# cap = cv2.VideoCapture('http://172.16.11.10:8080/stream.mjpeg')
 # cap = cv2.VideoCapture('http://172.16.11.10:8080/video')
+cap = cv2.VideoCapture('http://172.16.11.10:4747/video')
+cap.set(cv2.CAP_PROP_FPS, 10)
 
+count_frame = 0
 while True:
     ret, frame = cap.read()
+    count_frame = count_frame + 1
+    cap.set(cv2.CAP_PROP_FPS, 30)
+    fps = cap.get(cv2.CAP_PROP_FPS)
 #   cv2.imshow('Video', frame)
     # JPEG
     _, jpeg_frame = cv2.imencode('.jpg', frame)
@@ -81,10 +85,14 @@ while True:
     image = Image.fromarray(cv2.cvtColor(frame,cv2.COLOR_BGR2RGB))
     image = jpgResize(image, 224, 224)
     
-    prediction , label = run_prediction(np.asarray(image))
+    # Drop some of the framerate
+    if count_frame % 25 == 0:
+        prediction , label = run_prediction(np.asarray(image))
+        prediction_text_widget.value = label[1] + " @ fps: "+  str(fps)
     
-    prediction_text_widget.value = label[1]
+    
+    
+    # update the camera widget
     image_widget.value = cam_jpeg
     if cv2.waitKey(1) == 27:
         exit(0)
-    ipy.display.Image(frame)
