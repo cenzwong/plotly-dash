@@ -4,6 +4,7 @@
 
 import requests
 import base64
+import json
 
 url = "http://127.0.0.1:38100/predict/dbe05db58b43"
  
@@ -16,7 +17,8 @@ payload = "{\"inputs\":{\"Image\":\""+str(get_base64_encoded_image("./mask.jpg")
 
 response = requests.request("POST", url, data=payload)
 
-print(response.text)
+myJson = json.loads(response.text)
+# myJson['outputs']['Prediction'][0]
 """
 {"outputs": {"Labels": [["mask", 1.0], ["no-mask", 0.0]], "Prediction": ["mask"]}}
 """
