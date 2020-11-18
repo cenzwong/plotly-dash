@@ -11,19 +11,17 @@ import dash_html_components as html
 import plotly.express as px
 import plotly.graph_objects as go
 import pandas as pd
-
+import base64
 #====================================
 from pymongo import MongoClient
 import pprint as pp
 
 
-URL_Mongo = ''
+URL = base64.b64decode('MSBD5003bW9uZ29kYjovL21zYmQ1MDAzLW1vbmdvZGI6enNFVGlXRGFBSmRxT0RmT2c2Mm1pcGxTOWtITUVzNU41eGhtZ3lJelN6RWFPS1ZmTWRKcDdJVVRoQnFkN29iSzFPQnNuUjFuMmhIcU1kT1JNQ0N4Nnc9PUBtc2JkNTAwMy1tb25nb2RiLm1vbmdvLmNvc21vcy5henVyZS5jb206MTAyNTUvP3NzbD10cnVlJnJlcGxpY2FTZXQ9Z2xvYmFsZGImcmV0cnl3cml0ZXM9ZmFsc2UmbWF4SWRsZVRpbWVNUz0xMjAwMDAmYXBwTmFtZT1AbXNiZDUwMDMtbW9uZ29kYkA=')
+URL_Mongo = str(URL)[2:-1]
 client = MongoClient(URL_Mongo)
 
-# Accessing Database
-print(client.list_database_names())
 db_credit = client['credit']
-print(db_credit.list_collection_names())
 db_credit_application = db_credit['application']
 #===========================================
 
@@ -35,27 +33,38 @@ app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 # assume you have a "long-form" data frame
 # see https://plotly.com/python/px-arguments/ for more options
 # ======================
-df2 = pd.DataFrame({
-    "Fruit": ["Apples", "Oranges", "Bananas", "Apples", "Oranges", "Bananas"],
-    "Amount": [4, 1, 2, 2, 4, 5],
-    "City": ["SF", "SF", "SF", "Montreal", "Montreal", "Montreal"]
-})
-fig2 = px.bar(df2, x="Fruit", y="Amount", color="City", barmode="group")
-
-# ======================
-df = px.data.gapminder().query("year == 2007").query("continent == 'Europe'")
-df.loc[df['pop'] < 2.e6, 'country'] = 'Other countries' # Represent only large countries
-fig3 = px.pie(df, values='pop', names='country', title='Population of European continent')
-
-# ======================
 application_Male = db_credit_application.count_documents({"CODE_GENDER": "M"})
 application_Female = db_credit_application.count_documents({"CODE_GENDER": "F"})
-
 labels = ['Male','Female']
 values = [application_Male, application_Female]
 # values = [44776, 44778]
-fig4 = go.Figure(data=[go.Pie(labels=labels, values=values)])
+fig1 = go.Figure(data=[go.Pie(labels=labels, values=values)])
 
+# ======================
+application_Cash_loans = db_credit_application.count_documents({"NAME_CONTRACT_TYPE": "Cash loans"})
+application_Revolving_loans = db_credit_application.count_documents({"NAME_CONTRACT_TYPE": "Revolving loans"})
+
+labels = ['Cash loans','Revolving_loans']
+values = [application_Cash_loans, application_Revolving_loans]
+# values = [44776, 44778]
+fig2 = go.Figure(data=[go.Pie(labels=labels, values=values)])
+
+# ======================
+results = list(db_credit_application.find({'CODE_GENDER': 'M', 'AMT_ANNUITY':{'$gt':100,'$lt':150000}}, {'AMT_ANNUITY':1, '_id':0}))
+myX = [myDict["AMT_ANNUITY"] for myDict in results]
+
+fig3 = go.Figure(data=[go.Histogram(x=myX, histnorm='probability')])
+# ======================
+pipeline = [
+    {"$group": {"_id": "$NAME_INCOME_TYPE", "count": {"$sum": 1}}}
+]
+results = list(db_credit_application.aggregate(pipeline))
+pp.pprint(results)
+labels = [myDict["_id"] for myDict in results]
+values = [myDict["count"] for myDict in results]
+
+fig4 = go.Figure(data=[go.Pie(labels=labels, values=values)])
+# ======================
 app.layout = html.Div(children=[
     html.H1(children='Home Credit Default Risk'),
 
@@ -65,19 +74,23 @@ app.layout = html.Div(children=[
 
     dcc.Graph(
         id='application_male_female',
-        figure=fig4
+        figure=fig1
     ),
 
     dcc.Graph(
-        id='example-graph',
+        id='contract_type_distribution',
         figure=fig2
     ),
 
     dcc.Graph(
-        id='example-graph2',
+        id='Histogram_of_Annuinity',
         figure=fig3
     ),
 
+    dcc.Graph(
+        id='Ratio Income Type',
+        figure=fig4
+    ),
 
 ])
 
