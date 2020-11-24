@@ -49,9 +49,7 @@ def run_prediction(in_image_array):
     # run the inference
     prediction = model.predict(data)
     return prediction, labels[np.argmax(prediction[0])]
-
-
-
+#print(run_prediction(jpg_path2array("jpg_path")))
 
 import cv2
 
@@ -89,8 +87,6 @@ while True:
     if count_frame % 25 == 0:
         prediction , label = run_prediction(np.asarray(image))
         prediction_text_widget.value = label[1] + " @ fps: "+  str(fps)
-    
-    
     
     # update the camera widget
     image_widget.value = cam_jpeg
