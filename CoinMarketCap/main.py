@@ -1,9 +1,9 @@
-# !curl -H "X-CMC_PRO_API_KEY: 92e361bb-c2cb-4520-8cdd-9ceb3b3b8ba5-cenz" -H "Accept: application/json" -d "start=1&limit=5000&convert=USD" -G https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest
+# !curl -H "X-CMC_PRO_API_KEY: 92e361bb-c2cb-4520-8cdd-9cebcenz3b3b8ba5-cenz" -H "Accept: application/json" -d "start=1&limit=5000&convert=USD" -G https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest
 
 import requests
 
 payload = {'symbol': 'BTC,ETH,MCO,PAXG',  'convert': 'USD'}
-headers = {'X-CMC_PRO_API_KEY': '92e361bb-c2cb-4520-8cdd-9ceb3b3b8ba5'}
+headers = {'X-CMC_PRO_API_KEY': 'add-your-key'}
 r = requests.get('https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest', params=payload, headers=headers)
 json_coinmarketcap = r.json()
 
