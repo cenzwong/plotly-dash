@@ -25,6 +25,8 @@ def telegram_sendPhotofromFile(str_API_TOKEN, str_API_getMe, dict_payload, dict_
 
 
 # Example
+## Code for update
+telegram_request(API_TOKEN, API_getUpdates, {}, {})
 ## Code for sending Texy
 myText = str("ThisText")+ newLine + str("ThatText")
 payload = {
