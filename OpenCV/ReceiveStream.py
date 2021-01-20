@@ -9,6 +9,9 @@ import cv2
 # DroidCam by Dev47Apps
 cap = cv2.VideoCapture('http://172.16.11.10:4747/video')
 
+# video file
+cap = cv2.VideoCapture('videos/example_01.mp4')
+
 while True:
   ret, frame = cap.read()
   cv2.imshow('Video', frame)
