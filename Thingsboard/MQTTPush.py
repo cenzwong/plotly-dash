@@ -23,17 +23,17 @@ import random
 import math
 
 # The retain flag is used to Let other side to get back the result once connect
-# mqtt_client.publish(topic=MQTT_TOPIC1, payload=json.dumps(payload), qos=1, ret                                                         ain=False)
+# mqtt_client.publish(topic=MQTT_TOPIC1, payload=json.dumps(payload), qos=1, retain=False)
 
 try:
         while True:
 
                 myTime = time.asctime( time.localtime(time.time()) )
-                myVal = 20*math.sin(2*math.pi*(1/(60))*time.time())+5*math.sin(2                                                         *math.pi*(3/60)*time.time())
+                myVal = 20*math.sin(2*math.pi*(1/(60))*time.time())+5*math.sin(2*math.pi*(3/60)*time.time())
 #               print(myVal)
                 payload = {"time": myTime, "value": myVal}
 
-                mqtt_client.publish(topic=MQTT_TOPIC1, payload=json.dumps(payloa                                                         d), qos=2)
+                mqtt_client.publish(topic=MQTT_TOPIC1, payload=json.dumps(payload), qos=2)
                 time.sleep(1)
 
 except KeyboardInterrupt:
