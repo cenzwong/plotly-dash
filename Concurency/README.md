@@ -1,4 +1,7 @@
-# Concurrency in Python
+# Concurrency & Parallelism in Python
+
+- Concurrency is when processes are executed on a single processor by context switching, and they appear to be running simultaneously. 
+- Parallelism is when processes are executed on multiple processors or cores and are actually running simultaneously.
 
 # 1. Threading
 
