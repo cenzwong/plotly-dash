@@ -5,9 +5,11 @@
 
 # 1. Threading
 
-# 2. Threading
+# 2. Multiprocessing
 
-# 3. Threading
+# 3. Asyncio
+
+# 4. Concurrent.futures
 
 ## Reference
 1. https://developer.hpe.com/blog/understanding-concurrency-in-python-part-1-threading
