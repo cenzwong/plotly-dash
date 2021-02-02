@@ -4,12 +4,39 @@
 - Parallelism is when processes are executed on multiple processors or cores and are actually running simultaneously.
 
 # 1. Threading
+```python
+import threading
+from threading import Thread
+
+"""
+Class Thread:
+    # Target will be a callable function
+    def __init__(self, target, name=None, args=90, kwargs={}):
+        pass
+"""
+```
+Thread class is key
+
+You can construct a Thread. After constructing, all the function not yet running
+```t.start()```
+
+This will run the thread
+
+Args must take in tuple, so if you are passing only one parameter, do this (1, ) 
 
 # 2. Multiprocessing
 
 # 3. Asyncio
 
 # 4. Concurrent.futures
+
+# 5. Other
+## Trio
+## Curio
+## Rapids AI
+## _thread
+This is the python low level API of threading
+
 
 ## Reference
 1. https://developer.hpe.com/blog/understanding-concurrency-in-python-part-1-threading
@@ -18,3 +45,5 @@
 
 - https://docs.python.org/3/library/ipc.html
 - https://docs.python.org/3/library/concurrency.html
+
+- [Tutorial: Santiago Basulto - Python Concurrency: from beginner to pro](https://www.youtube.com/watch?v=18B1pznaU1o)
