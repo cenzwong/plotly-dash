@@ -47,3 +47,7 @@ This is the python low level API of threading
 - https://docs.python.org/3/library/concurrency.html
 
 - [Tutorial: Santiago Basulto - Python Concurrency: from beginner to pro](https://www.youtube.com/watch?v=18B1pznaU1o)
+
+# Sched
+- https://towardsdatascience.com/scheduling-all-kinds-of-recurring-jobs-with-python-b8784c74d5dc
+- running deferred jobs like with Linux ```at``` command
