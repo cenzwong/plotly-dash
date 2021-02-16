@@ -25,55 +25,48 @@ card = dbc.Card(
     style={"width": "18rem"},
 )
 
-# class myLayout:
-#     _nCol = 0
-#     _myRow = []
+# ==============================
+myAlert = dbc.Alert("One of two columns", color="primary")
+myHead = html.H1("Cyberport Bus ETA", style={'textAlign': 'center'})
+myLayout = [
+    [myHead],
+    [myAlert, myAlert, myAlert],
+    [card, card, card, card]
+]
+import pprint
+def lt2app_layout(layoutss):
+    _myCol = []
+    _myBody = []
+    for row in layoutss:
+        for col in row:
+            _myCol.append(dbc.Col(html.Div(col), width=12/len(row)))
+    _myBody.append(dbc.Container(dbc.Row(_myCol)))
+    return html.Div(children=_myBody)
+app.layout = lt2app_layout(myLayout)
 
-#     def __init__(self, nCol):
-#         self._nCol = nCol
     
-#     def appendRow(self, ltDBC, ltWidth):
-#         myCol = []
-#         for ltdbc, ltwidth in zip(ltDBC, ltWidth):
-#            myCol.append(dbc.Col(html.Div(ltdbc), width=ltwidth))
-#         self._myRow.append(dbc.Row(myCol))
-    
-#     def appendBody(self, ltHtml):
-#         myBody = []
-#         for lthtml in ltHtml:
-#            myBody.append(dbc.Container(lthtml))
-#         for myR in self._myRow:
-#            myBody.append(dbc.Container(myR))
-#         return html.Div(children=myBody)
-
-# myLay = myLayout(4)
-# myLay.appendRow([dbc.Alert("One of two columns", color="primary"),
-#         dbc.Alert("One of two columns", color="primary"),
-#         dbc.Alert("One of two columns", color="primary")], [4,4,4])
-# myLay.appendRow([card, card, card, card], [3,3,3,3])
-# app.layout = myLay.appendBody([html.H1("Cyberport Bus ETA", style={'textAlign': 'center'})])
 # ======================
-myRow = []
-myCol = []
-myCol.append(dbc.Col(html.Div(dbc.Alert("One of two columns", color="primary")), width=3))
-myCol.append(dbc.Col(html.Div(dbc.Alert("One of two columns", color="primary")), width=3))
-myCol.append(dbc.Col(html.Div(dbc.Alert("One of two columns", color="primary")), width=3))
-myCol.append(dbc.Col(html.Div(dbc.Alert("One of two columns", color="primary")), width=3))
-myRow.append(dbc.Row(myCol))
+# myRow = []
+# myCol = []
+# myCol.append(dbc.Col(html.Div(dbc.Alert("One of two columns", color="primary")), width=3))
+# myCol.append(dbc.Col(html.Div(dbc.Alert("One of two columns", color="primary")), width=3))
+# myCol.append(dbc.Col(html.Div(dbc.Alert("One of two columns", color="primary")), width=3))
+# myCol.append(dbc.Col(html.Div(dbc.Alert("One of two columns", color="primary")), width=3))
+# myRow.append(dbc.Row(myCol))
 
-myRow2 = []
-myCol2 = []
-myCol2.append(dbc.Col(html.Div(dbc.Alert("One of two columns", color="primary")), width=4))
-myCol2.append(dbc.Col(html.Div(dbc.Alert("One of two columns", color="primary")), width=4))
-myCol2.append(dbc.Col(html.Div(card), width=4))
-myRow2.append(dbc.Row(myCol2))
+# myRow2 = []
+# myCol2 = []
+# myCol2.append(dbc.Col(html.Div(dbc.Alert("One of two columns", color="primary")), width=4))
+# myCol2.append(dbc.Col(html.Div(dbc.Alert("One of two columns", color="primary")), width=4))
+# myCol2.append(dbc.Col(html.Div(card), width=4))
+# myRow2.append(dbc.Row(myCol2))
 
-body = []
-body.append(dbc.Container(html.H1("Cyberport Bus ETA", style={'textAlign': 'center'})))
-body.append(dbc.Container(myRow))
-body.append(dbc.Container(myRow2))
+# body = []
+# body.append(dbc.Container(html.H1("Cyberport Bus ETA", style={'textAlign': 'center'})))
+# body.append(dbc.Container(myRow))
+# body.append(dbc.Container(myRow2))
 
-app.layout = html.Div(children=body)
+# app.layout = html.Div(children=body)
 
 
 if __name__ == "__main__":
