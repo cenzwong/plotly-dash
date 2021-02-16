@@ -66,7 +66,7 @@ myCol2 = []
 myCol2.append(dbc.Col(html.Div(dbc.Alert("One of two columns", color="primary")), width=4))
 myCol2.append(dbc.Col(html.Div(dbc.Alert("One of two columns", color="primary")), width=4))
 myCol2.append(dbc.Col(html.Div(card), width=4))
-myRow.append(dbc.Row(myCol2))
+myRow2.append(dbc.Row(myCol2))
 
 body = []
 body.append(dbc.Container(html.H1("Cyberport Bus ETA", style={'textAlign': 'center'})))
