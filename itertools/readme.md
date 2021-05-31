@@ -1,4 +1,5 @@
 # Itertools
+- https://realpython.com/python-itertools/
 ## import
 ```py
 import itertools
