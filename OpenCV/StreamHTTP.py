@@ -4,6 +4,13 @@
 # USAGE
 # python webstreaming.py --ip 0.0.0.0 --port 8000
 
+
+# requirements.txt
+# numpy
+# imutils
+# opencv-python
+# flask
+
 # import the necessary packages
 # from pyimagesearch.motion_detection import SingleMotionDetector
 from imutils.video import VideoStream
