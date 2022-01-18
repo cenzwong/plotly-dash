@@ -14,6 +14,26 @@ GCS_BUCKET = f"{PROJECT_ID}-bucket"
 !gsutil mb -l $REGION gs://$GCS_BUCKET
 ```
 
+
+```python
+USER_FLAG = "--user"
+!pip3 install {USER_FLAG} google-cloud-aiplatform==1.0.0 --upgrade
+!pip3 install {USER_FLAG} kfp google-cloud-pipeline-components==0.1.1 --upgrade
+
+# restart the kernel
+import os
+if not os.getenv("IS_TESTING"):
+    # Automatically restart kernel after installs
+    import IPython
+    app = IPython.Application.instance()
+    app.kernel.do_shutdown(True)
+
+!python3 -c "import kfp; print('KFP SDK version: {}'.format(kfp.__version__))"
+!python3 -c "import google_cloud_pipeline_components; print('google_cloud_pipeline_components version: {}'.format(google_cloud_pipeline_components.__version__))"
+```
+
+
+
 ```python
 from google.cloud import aiplatform
 
@@ -53,7 +73,6 @@ model = job.run(
     # Provide your Vertex custom training service account created during lab setup.
     service_account=f"vertex-custom-training-sa@{PROJECT_ID}.iam.gserviceaccount.com"
 )
-
 
 # ...
 # Specify sampled Shapley feature attribution method with path_count parameter 
