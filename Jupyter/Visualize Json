@@ -1,0 +1,5 @@
+# Online works in Jupyter
+from IPython.display import JSON
+JSON({'relationship': ['OTHERS', 'SPOUSE'],
+ 'status': ['INACTIVE', 'ACTIVE'],
+ 'version': [1, 3, 2]}, expanded=True)
